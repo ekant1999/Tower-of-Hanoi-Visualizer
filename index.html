@@ -8,7 +8,9 @@
       <script src="index.js"></script>
    </head>
    <body>
+    <button id="btn1">Solve</button>  
       <canvas id="myCanvas" width="400" height="250" style="border:1px solid #d3d3d3;"></canvas>
+
       <script >
          var c = document.getElementById("myCanvas");
          var context = c.getContext("2d");
@@ -16,6 +18,9 @@
 
           context.moveTo(50, 40);
           context.lineTo(50, 200);
+          context.lineWidth = 5;
+          context.strokeStyle = "#82b7bf";
+          context.lineCap = "round";
           context.moveTo(0,200);
           context.lineTo(100,200);
           context.fillText("A", 50, 220)
@@ -34,9 +39,12 @@
            context.stroke();
 
       </script> 
-      <div id="box3" style="background:red;height:20px;width:100px;position: absolute;"></div>
-      <div id="box2" style="background:green;height:20px;width:80px;position: absolute;"></div>
-      <div id="box1" style="background:blue;height:20px;width:60px;position: absolute;"></div>
-      <button id="btn1">Solve</button>  
+      
+      <div id="box4" style="background:red;height:10px;width:100px;border-radius:10px;position: absolute;"></div>
+      <div id="box3" style="background:green;height:10px;width:80px;border-radius:10px;position: absolute;"></div>
+      <div id="box2" style="background:blue;height:10px;width:60px;border-radius:10px;position: absolute;"></div>
+       <div id="box1" style="background:black;height:10px;width:40px;border-radius:10px;position: absolute;"></div>
+       <div id="log"></div>
    </body>
 </html>
+
