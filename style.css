@@ -4,3 +4,18 @@ canvas{
     display: block;
     margin-top: 20px;
 }
+button#btn1{
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+    display: block;
+    text-decoration: none; color: #268;
+    border: 1px solid #88aaff;
+    border-radius: 10px;
+    background: linear-gradient(to top right, rgba(170,190,255,1) 0%, rgba(255,255,255,1) 100%);
+}
+div#log{
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+}
