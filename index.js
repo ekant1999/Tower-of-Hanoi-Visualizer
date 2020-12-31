@@ -1,118 +1,144 @@
-$(document).ready(function() {
-    var position = $("#myCanvas").offset();
-
-    $("#box4").css({
-        top: +position.top + 200 - 11,
-        left: +position.left
-    });
-    $("#box3").css({
-        top: +position.top + 200 - 21,
-        left: +position.left+10
-    });
-    $("#box2").css({
-        top: +position.top + 200 - 31,
-        left: +position.left + 20
-    });
-    $("#box1").css({
-        top: +position.top + 200 - 41,
-        left: +position.left + 30
-    });
-
-});
-
-
 var dict = {};
 dict['A'] = 0;
 dict['B'] = 1;
 dict['C'] = 2;
-var state =
- [    [1, 2, 3,4], [], []]
 
 var steps = new Array();
 
+$(document).ready(function(){
+
+	var position = $("#myCanvas").offset();
+	$('#noOfDisc').css({
+		'left': position.left
+	});
+	$('#Reset').css({
+		'left': position.left + 350
+	});
+
+	var select = '';
+	for (i = 1; i <= 10; i++) {
+		select += '<option val=' + i + '>' + i + '</option>';
+	}
+	$('select option[value="3"]').attr("selected", true);
+	$('#noOfDisc').html(select);
+	$('#noOfDisc').val(7);
+
+	createDisc(Number($( "#noOfDisc option:selected" ).text()));
+	$("#Solve").click(function () {
+		solve(Number($( "#noOfDisc option:selected" ).text()));
+	});
+	
+var diskInA=Number($( "#noOfDisc option:selected" ).text());
+var diskInB=0;
+var diskInC=0;
 function status(initial, target, num) {
-    var arr;
-    if (target == "B") {
-        state[1].push(num);
-        arr = state[1];
-    } else if (target == "A") {
-        state[0].push(num);
-        arr = state[0];
-    } else {
-        state[2].push(num);
-        arr = state[2];
-    }
-    if (initial == "B")
-        state[1].pop();
-    else if (initial == "A")
-        state[0].pop();
-    else
-        state[2].pop();
-    return arr;
+	var len;
+	if (target == "B") {
+		diskInB ++;
+		len =diskInB;
+	} else if (target == "A") {
+		diskInA ++;
+		len =diskInA;
+	} else {
+		diskInC ++;
+		len =diskInC;
+	}
+	if (initial == "B")
+		diskInB --;
+	else if (initial == "A")
+		diskInA --;
+	else
+		diskInC --;
+	return len;
 }
-
-function towerOfHanoi(num, initial, target, auxilary) {
-    if (num == 1) {
-        steps.push(function() {
-            $.when(move(num, initial, target)).done(function() {
-                console.log("move disk 1 from tower " +initial +" to tower " +target);
-                var p = document.createElement("p");
-                p.innerHTML="move disk 1 from tower " +initial +" to tower " +target;
-                document.getElementById("log").appendChild(p);
-            });
-        });
-        return;
-    }
-    towerOfHanoi(num - 1, initial, auxilary, target);
-    steps.push(function() {
-        $.when(move(num, initial, target)).done(function() {
-            console.log("move disk "+ num + " from tower " + initial + " to tower " + target);
-            var p = document.createElement("p");
-            p.innerHTML="move disk 1 from tower " +initial +" to tower " +target;
-            document.getElementById("log").appendChild(p);
-        });
-    });
-
-    towerOfHanoi(num - 1, auxilary, target, initial);
-}
-
 function move(num, start, end) {
-    var arr2 = status(start, end, num);
-    var id = "#box" + num;
-    var len = arr2.length - 1;
-    var x = $(id);
-    x.animate({
-        top: '80px'
-    }, "slow", function() {
-        x.animate({
-            left: (x.offset().left + (dict[end] - dict[start]) * 150)
-        }, "slow", function() {
-            x.animate({
-                top: (257 - len * 10)
-            }, "slow", function() {
+	var len = status(start, end, num) - 1;
+	console.log(len);
+	var id = "#box" + num;
+	var x = $(id);
+	x.animate({
+		top: '80px'
+	}, "slow", function () {
+		x.animate({
+			left: (x.offset().left + (dict[end] - dict[start]) * 150)
+		}, "slow", function () {
+			x.animate({
+				top: (257 - len * 10)
+			}, "slow", function () {
 
-            });
-        });
-    });
+			});
+		});
+	});
 }
-$(document).ready(function() {
-    function solve() {
+function towerOfHanoi(num, initial, target, auxilary) {
+	if (num == 1) {
+		steps.push(function () {
+			$.when(move(num, initial, target)).done(function () {
+				console.log("move disk 1 from tower " + initial + " to tower " + target);
+			});
+		});
+		return;
+	}
+	towerOfHanoi(num - 1, initial, auxilary, target);
+	steps.push(function () {
+		$.when(move(num, initial, target)).done(function () {
+			console.log("move disk " + num + " from tower " + initial + " to tower " + target);
+		});
+	});
+	towerOfHanoi(num - 1, auxilary, target, initial);
+}
+function createDisc(num) {
+	var colors = [
+		'red', 'green', 'blue',
+		'black', 'DarkMagenta', '#ff6600','red', 'green', 'blue',
+		'black'
+	];
+	for (i = num; i > 0; i--) {
+		var id = "box" + Number(i);
+		d = document.createElement('div');
+		$(d).height(100 - i * 20)
+			.attr('id', id)
+			.attr('class', 'box')
+			.appendTo($("body"))
+	}
 
-        towerOfHanoi(4, 'A', 'B', 'C');
+	$(".box").each(function (index, item) {
+		var position = $("#myCanvas").offset();
+		var wid = 100 - (10 * index);
+		if ($(this).is(":empty")) {
+			$(this).css({
+				"background": colors[index],
+				"height": "10px",
+				"border-radius": "10px",
+				"position": "absolute",
+				'top': position.top + 189 - index * 10,
+				'left': position.left + index * 5
+			}).width(wid)
+		}
+	});
+}
+	function solve(num) {
 
-        for (var i = 0, len = steps.length; i < len; i++) {
-            var fn = steps[i];
-            setTimeout(fn, i * 1800);
-        }
-        setTimeout(function() {
-            alert("Successfully solved!");
-        }, (steps.length + 1) * 1600);
+		towerOfHanoi(num, 'A', 'B', 'C');
 
-    }
+		for (var i = 0, len = steps.length; i < len; i++) {
+			var fn = steps[i];
+			setTimeout(fn, i * 1800);
+		}
+		setTimeout(function () {
+			alert("Successfully solved!");
+		}, (steps.length + 1) * 1800);
 
-    $("#btn1").click(function() {
-        solve();
-    });
+	}
+  $("#noOfDisc").change(function() {
+    $( ".box" ).remove();
+	diskInA=Number($( "#noOfDisc option:selected" ).text());
+	createDisc(Number($(this).val()));
+  });
+  $("#Reset").click(function() {
+	  var num=Number($( "#noOfDisc option:selected" ).text());
+	   location.reload();
+	   $( "#noOfDisc option:selected" ).text(num);
+	   createDisc(Number($( "#noOfDisc option:selected" ).text()));
+  });
 });
-
-
