@@ -22,7 +22,7 @@ $(document).ready(function() {
     });
 
     var select = '';
-    for (i = 1; i <= 10; i++) {
+    for (i = 3; i <= 10; i++) {
         select += '<option val=' + i + '>' + i + '</option>';
     }
     $('#noOfDisc').html(select);
