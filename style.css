@@ -9,29 +9,25 @@ button.btn1{
     display: block;
     text-decoration: none;
 	color: #2d8822;
-    border: 1px solid #165406;
+    border: 3px solid #68b953;
     border-radius: 10px;
     background: linear-gradient(to top right,rgb(111 241 109) 0%, rgba(255,255,255,1) 100%);
 }
 
 button#Reset{
-	left: 480px;
-    top: 20px; 
 	color: #268;
-    border: 1px solid #88aaff;
+    border: 3px solid #88aaff;
     border-radius: 10px;
+	top:76px;
     background: linear-gradient(to top right, rgba(170,190,255,1) 0%, rgba(255,255,255,1) 100%);
 	
 }
 select.dropDown{
-	margin-right: auto;
-    margin-left: auto;
     display: block;
     text-decoration: none; color: #268;
     border: 3px solid #88aaff;
     border-radius: 10px;
     background: linear-gradient(to top right, rgba(170,190,255,1) 0%, rgba(255,255,255,1) 100%);
-	left: 130px;
 }
 
 
