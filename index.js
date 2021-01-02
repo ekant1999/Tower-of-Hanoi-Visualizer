@@ -78,13 +78,13 @@ $(document).ready(function() {
         var id = "#box" + num;
         var x = $(id);
         x.animate({
-            top: '80px'
+            top: '140px'
         }, speed, function() {
             x.animate({
                 left: (x.offset().left + (dict[end] - dict[start]) * 150)
             }, speed, function() {
                 x.animate({
-                    top: (257 - len * 10)
+                    top: (315 - len * 12)
                 }, speed, function() {
 
                 });
@@ -131,10 +131,10 @@ $(document).ready(function() {
             if ($(this).is(":empty")) {
                 $(this).css({
                     "background": colors[index],
-                    "height": "10px",
+                    "height": "12px",
                     "border-radius": "10px",
                     "position": "absolute",
-                    'top': position.top + 189 - index * 10,
+                    'top': position.top + 187 - index * 12,
                     'left': position.left + index * 5
                 }).width(wid)
             }
