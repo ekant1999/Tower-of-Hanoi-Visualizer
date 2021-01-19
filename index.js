@@ -4,7 +4,6 @@ dict['B'] = 1;
 dict['C'] = 2;
 
 var steps = new Array();
-
 $(document).ready(function() {
 
     var position = $("#myCanvas").offset();
@@ -71,7 +70,6 @@ $(document).ready(function() {
             diskInC--;
         return len;
     }
-
     function move(num, start, end, speed) {
         var len = status(start, end, num) - 1;
         console.log(len);
@@ -91,7 +89,6 @@ $(document).ready(function() {
             });
         });
     }
-
     function towerOfHanoi(num, initial, target, auxilary) {
         if (num == 1) {
             steps.push(function() {
@@ -109,7 +106,6 @@ $(document).ready(function() {
         });
         towerOfHanoi(num - 1, auxilary, target, initial);
     }
-
     function createDisc(num) {
         var colors = [
             'red', 'green', 'blue',
@@ -124,7 +120,6 @@ $(document).ready(function() {
                 .attr('class', 'box')
                 .appendTo($("body"))
         }
-
         $(".box").each(function(index, item) {
             var position = $("#myCanvas").offset();
             var wid = 100 - (10 * index);
@@ -142,9 +137,7 @@ $(document).ready(function() {
     }
 
     function solve(num) {
-
         towerOfHanoi(num, 'A', 'B', 'C');
-
         for (var i = 0, len = steps.length; i < len; i++) {
             var fn = steps[i];
             setTimeout(fn, i * 1800);
